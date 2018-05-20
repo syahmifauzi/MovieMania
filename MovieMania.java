@@ -1,13 +1,10 @@
 import java.util.ArrayList;
 import java.io.File;
 import java.util.Scanner;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 public class MovieMania {
   private ArrayList<Movie> movies;
-  private ArrayList<Ticket> tickets; // All bought tickets - each ticket has all information
+  private ArrayList<Ticket> tickets;
   private double total_price;
   // Constructor
   MovieMania() {
@@ -33,17 +30,35 @@ public class MovieMania {
       this.total_price += ticket.getPrice();
     return this.total_price;
   }
-  public ArrayList<String> getSeats() {
-    ArrayList<String> seats = new ArrayList<String>();
-    for (Ticket ticket: this.tickets)
-      seats.add(ticket.getSeat());
-    return seats;
-  }
   public int getQuantity() {
     return this.tickets.size();
   }
+  public ArrayList<String> getSeatsBySession(String session) {
+    ArrayList<String> seats = new ArrayList<String>();
+    for (Ticket ticket: this.tickets)
+      if (ticket.getMovie().getSession().equals(session))
+        seats.add(ticket.getSeat());
+    return seats;
+  }
+  public ArrayList<String> getMoviesNameType() {
+    ArrayList<String> movies = new ArrayList<String>();
+    for (Movie movie: this.getMovies())
+      if (!movies.contains(movie.getNameType()))
+        movies.add(movie.getNameType());
+    return movies;
+  }
+  public ArrayList<String> getSessionByNameType(String nameType) {
+    ArrayList<String> sessions = new ArrayList<String>();
+    for (Movie movie: this.movies)
+      if (movie.getNameType().equals(nameType))
+        sessions.add(movie.getSession());
+    return sessions; // .toArray(new String[sessions.size()]);
+  }
 
   // Other Methods
+  public void addTicket(Ticket ticket) {
+    this.tickets.add(ticket);
+  }
   private void readFile() throws Exception {
     File file = new File("movie-list.dat").getAbsoluteFile();
     Scanner scan = new Scanner(file);
@@ -52,19 +67,9 @@ public class MovieMania {
       Movie movie = new Movie();
       movie.setName(scan.next().trim());
       movie.setType(scan.next().trim());
-      String dateStr = scan.next().trim();
-      try {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-HH-dd HH:mm");
-        movie.setSession(dateFormat.parse(dateStr));
-      } catch (Exception e) {
-        System.err.println(e.getMessage());
-      }
-      movie.setHall(scan.next().trim());
+      movie.setSession(scan.next().trim());
       movies.add(movie); // Push current movie to movies array
     }
     scan.close();
-  }
-  public void addTicket(Ticket ticket) {
-    this.tickets.add(ticket);
   }
 }

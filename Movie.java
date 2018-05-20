@@ -1,14 +1,12 @@
-import java.util.Date;
 
 public class Movie {
   private String name;
   private String type;
-  private Date session;
-  private String hall;
+  private String session;
 
   // Constructors
   Movie() {}
-  Movie(String name, String type, Date session) {
+  Movie(String name, String type, String session) {
     this.name = name;
     this.type = type;
     this.session = session;
@@ -21,11 +19,8 @@ public class Movie {
   protected void setType(String type) {
     this.type = type;
   }
-  protected void setSession(Date session) {
+  protected void setSession(String session) {
     this.session = session;
-  }
-  protected void setHall(String hall) {
-    this.hall = hall;
   }
 
   // Getters
@@ -35,10 +30,10 @@ public class Movie {
   public String getType() {
     return this.type;
   }
-  public Date getSession() {
+  public String getSession() {
     return this.session;
   }
-  public String getHall() {
-    return this.hall;
+  public String getNameType() {
+    return this.getName() + " - " + this.getType();
   }
 }
