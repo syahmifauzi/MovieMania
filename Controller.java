@@ -2,8 +2,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,11 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -135,6 +131,11 @@ public class Controller implements Initializable {
       boolean bl = ConfirmBox.display("Purchase Ticket(s)", "Do you want to buy the added ticket(s)?");
       if (bl) {
         PurchaseTicket.display(this.movieMania);
+        try {
+          this.goToScene1();
+        } catch (IOException iex) {
+          System.out.println(iex.getMessage());
+        }
       }
     });
   }
@@ -251,6 +252,7 @@ class SeatsLayout {
 
 
 class PurchaseTicket {
+
   public static void display(MovieMania movieMania) {
     Stage localStage = new Stage();
     localStage.initModality(Modality.APPLICATION_MODAL);
@@ -270,22 +272,27 @@ class PurchaseTicket {
     localVBox1.getChildren().add(text);
 
     int i = 1;
-    for (Ticket ticket : movieMania.getTickets()) {
-      Label localLabel1 = new Label("Ticket #" + i++);
-      Label localLabel2 = new Label(ticket.getMovie().getNameType());
-      Label localLabel3 = new Label(ticket.getMovie().getSession());
-      boolean isPremium = ticket instanceof Premium;
-      Label localLabel4 = new Label(isPremium ? "Premium" : "Standard");
-      Label localLabel5 = new Label(ticket.getSeat());
-      Label localLabel6 = new Label(String.format("RM%.2f", ticket.getPrice()));
-      localLabel1.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
+    for (Ticket ticket: movieMania.getTickets()) {
+      Label locLab1 = new Label("Ticket #" + i++);
+      Label locLab2 = new Label("Movie: " + ticket.getMovie().getNameType());
+      Label locLab3 = new Label("Session: " + ticket.getMovie().getSession());
+      Label locLab4 = new Label("Seat: " + ticket.getSeat());
+      Label ticketLab = new Label("Standard - *no add on");
+
+      if (ticket instanceof Premium) {
+        Premium premium = new Premium();
+        ticketLab.setText("Premium - " + premium.getPackages().toString());
+      }
+
+      Label locLab6 = new Label(String.format("RM%.2f", ticket.getPrice()));
+      locLab1.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
 
       VBox localVBox2 = new VBox(5);
       localVBox2.setAlignment(Pos.CENTER);
       localVBox2.setPadding(new Insets(10));
-      localVBox2.getChildren().addAll(localLabel1, localLabel2, localLabel3, localLabel5, localLabel4, localLabel6);
+      localVBox2.getChildren().addAll(locLab1, locLab2, locLab3, locLab4, ticketLab, locLab6);
 
-      Rectangle localRectangle = new Rectangle(250, 150);
+      Rectangle localRectangle = new Rectangle(350, 150);
       localRectangle.setFill(Color.TRANSPARENT);
       localRectangle.setStroke(Color.BLACK);
       StackPane localStackPane = new StackPane();
@@ -306,7 +313,11 @@ class PurchaseTicket {
     qtyPrice.setPadding(new Insets(10, 10, 20, 10));
     qtyPrice.getChildren().addAll(title, quantity, price, tyMsg);
 
-    localVBox1.getChildren().add(qtyPrice);
+    Button btnHome = new Button("HOME");
+    btnHome.setOnAction(e -> localStage.close());
+    btnHome.setFocusTraversable(false);
+
+    localVBox1.getChildren().addAll(qtyPrice, btnHome);
     localScrollPane.setContent(localVBox1);
 
     Scene scene = new Scene(localScrollPane, 500, 400);
