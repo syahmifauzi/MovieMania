@@ -1,0 +1,53 @@
+/* GLOBAL STYLES */
+.button {
+  -fx-background-radius: 10px;
+  -fx-padding: 5px 10px;
+}
+
+/* FIRST SCENE */
+.scene-1-root {
+  -fx-background-image: url("img/cinema.jpg");
+  -fx-background-repeat: stretch;
+  -fx-background-size: 100% 100%;
+  -fx-background-position: center center;
+}
+.scene-1-root .label .text {
+  -fx-fill: #a50000;
+  -fx-font-family: "Lato", "Vendana", sans-serif;
+  -fx-font-size: 80px;
+  -fx-font-weight: bold;
+  -fx-stroke: #ffffff;
+  -fx-stroke-width: 2px;
+}
+
+
+/* SECOND SCENE */
+.scene-2-root, #seats-layout, #pt-scroll {
+  -fx-background-image: url("img/tile.jpg");
+  -fx-background-repeat: repeat;
+  -fx-background-size: auto auto;
+  -fx-background-position: center center;
+}
+.scene-2-root .book-title {
+  -fx-fill: #333333;
+  -fx-font-family: "Vendana";
+  -fx-font-size: 30px;
+  -fx-font-weight: bold;
+}
+.text-field:disabled {
+  /* -fx-max-width: 150px; */
+  -fx-prompt-text-fill: #000000;
+  -fx-alignment: center;
+}
+.choice-box, .choice-box .context-menu {
+  -fx-min-width: 200px;
+}
+#seats-screen {
+  -fx-text-fill: #a50000;
+  -fx-background-color: #f5aeae;
+  -fx-opacity: 1;
+}
+
+
+/* THIRD SCENE */
+

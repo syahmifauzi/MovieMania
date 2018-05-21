@@ -1,26 +1,36 @@
-
 public class Movie {
   private String name;
   private String type;
   private String session;
-
+  
   // Constructors
   Movie() {}
-  Movie(String name, String type, String session) {
-    this.name = name;
-    this.type = type;
-    this.session = session;
+  Movie(String paramString1, String paramString2, String paramString3) {
+    this.name = paramString1;
+    this.type = paramString2;
+    this.session = paramString3;
   }
-
+  Movie(String paramString1, String paramString2) {
+    setNameType(paramString1);
+    this.session = paramString2;
+  }
+  Movie(String paramString) {
+    setNameType(paramString);
+  }
+  
   // Setters
-  protected void setName(String name) {
-    this.name = name;
+  public void setName(String paramString) {
+    this.name = paramString;
   }
-  protected void setType(String type) {
-    this.type = type;
+  public void setType(String paramString) {
+    this.type = paramString;
   }
-  protected void setSession(String session) {
-    this.session = session;
+  public void setSession(String paramString) {
+    this.session = paramString;
+  }
+  public void setNameType(String paramString) {
+    this.name = paramString.split("-")[0].trim();
+    this.type = paramString.split("-")[1].trim();
   }
 
   // Getters
@@ -34,6 +44,6 @@ public class Movie {
     return this.session;
   }
   public String getNameType() {
-    return this.getName() + " - " + this.getType();
+    return getName() + " - " + getType();
   }
 }

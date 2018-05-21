@@ -7,25 +7,25 @@ public class Ticket {
   private String seat;
   private double price;
   private boolean isStudent;
-
-  // Constructor
+  
+  // Constructors
   Ticket() {
     this.isStudent = false;
   }
-  Ticket(String seat, boolean isStudent) {
-    this.seat = seat;
-    this.isStudent = isStudent;
+  Ticket(Movie paramMovie, boolean paramBoolean) {
+    this.movie = paramMovie;
+    this.isStudent = paramBoolean;
   }
-
+  
   // Setters
-  public void setMovie(Movie movie) {
-    this.movie = movie;
+  public void setMovie(Movie paramMovie) {
+    this.movie = paramMovie;
   }
-  public void setSeat(String seat) {
-    this.seat = seat;
+  public void setSeat(String paramString) {
+    this.seat = paramString;
   }
-  public void setStudent(boolean isStudent) {
-    this.isStudent = isStudent;
+  public void setStudent(boolean paramBoolean) {
+    this.isStudent = paramBoolean;
   }
 
   // Getters
@@ -39,44 +39,47 @@ public class Ticket {
     return this.isStudent;
   }
   public double getPrice() {
-    this.calcPrice();
+    calcPrice();
     return this.price;
   }
-
+  
   // Other methods
   protected boolean isWeekDay() {
-    Calendar cal = Calendar.getInstance();
-    cal.setTime(new Date());
-    int dow = cal.get(Calendar.DAY_OF_WEEK);
-    return dow > 1 && dow < 7; // return false if SUNDAY(1) & SATURDAY(7)
+    Calendar localCalendar = Calendar.getInstance();
+    localCalendar.setTime(new Date());
+    int i = localCalendar.get(7);
+    return (i > 1) && (i < 7);
   }
   private void calcPrice() {
-    this.price = 8.00; // RM8.00 is the base price
-    if (this.isStudent) this.price -= 1.00;
-    if (this.isWeekDay()) this.price -= 1.00;
-    if (this.movie.getType() == "3D") this.price += 3.00;
-    else if (this.movie.getType() == "ATMOS") this.price += 1.00;
+    this.price = 8.0D;
+    if (this.isStudent) this.price -= 1.0D;
+    if (isWeekDay()) this.price -= 1.0D;
+    if (this.movie.getType().equals("3D")) this.price += 3.0D;
+    else if (this.movie.getType().equals("ATMOS")) this.price += 1.5D;
   }
 }
 
 
-class Primium extends Ticket {
-  @Override
+class Premium extends Ticket {
+  Premium() {}
+  Premium(Movie paramMovie, boolean paramBoolean) {
+    super(paramMovie, paramBoolean);
+  }
+
   public double getPrice() {
-    double price = 18.00; // RM18.00 for Primium Ticket
-    if (this.isStudent()) price -= 0.50;
-    if (this.isWeekDay()) price -= 0.50;
-    if (this.getMovie().getType() == "3D") price += 2.50;
-    else if (this.getMovie().getType() == "ATMOS") price += 0.50;
-    return price;
+    double d = 18.0D;
+    if (isStudent()) d -= 0.5D;
+    if (isWeekDay()) d -= 0.5D;
+    if (getMovie().getType().equals("3D")) d += 2.5D;
+    else if (getMovie().getType().equals("ATMOS")) d += 1.0D;
+    return d;
   }
-  // Premium ticket include these things
+
   public ArrayList<String> getPackages() {
-    ArrayList<String> packages = new ArrayList<String>();
-    packages.add("Soft drink");
-    packages.add("Popcorn");
-    packages.add("Ferrero rocher");
-    return packages;
+    ArrayList<String> localArrayList = new ArrayList<String>();
+    localArrayList.add("Soft drink");
+    localArrayList.add("Popcorn");
+    localArrayList.add("Ferrero rocher");
+    return localArrayList;
   }
 }
-
