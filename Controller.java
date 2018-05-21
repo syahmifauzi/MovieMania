@@ -134,7 +134,7 @@ public class Controller implements Initializable {
     this.purchaseButton.setOnAction(e -> {
       boolean bl = ConfirmBox.display("Purchase Ticket(s)", "Do you want to buy the added ticket(s)?");
       if (bl) {
-        PurchaseTicket.display(this.movieMania.getTickets());
+        PurchaseTicket.display(this.movieMania);
       }
     });
   }
@@ -203,64 +203,6 @@ class ConfirmBox {
 }
 
 
-class PurchaseTicket {
-  public static void display(ArrayList<Ticket> paramArrayList) {
-    Stage localStage = new Stage();
-    localStage.initModality(Modality.APPLICATION_MODAL);
-    localStage.setTitle("Movie Mania Ticket Purchase");
-
-    ScrollPane localScrollPane = new ScrollPane();
-    localScrollPane.setId("pt-scroll");
-    localScrollPane.setPadding(new Insets(10));
-    localScrollPane.setFitToWidth(true);
-    VBox localVBox1 = new VBox(10);
-
-    int i = 1;
-    for (Ticket ticket: paramArrayList) {
-      if (i == 1) {
-        Label text = new Label("Receipt");
-        text.setStyle("-fx-font-size: 25px; -fx-font-weight: bold;");
-        localVBox1.setAlignment(Pos.CENTER);
-        localVBox1.getChildren().add(text);
-      }
-      Label localLabel1 = new Label("Ticket #" + i++);
-      Label localLabel2 = new Label(ticket.getMovie().getNameType());
-      Label localLabel3 = new Label(ticket.getMovie().getSession());
-      boolean bool = ticket instanceof Premium;
-      Label localLabel4 = new Label(bool ? "Premium" : "Standard");
-      // System.out.println(localLabel4);
-      // if (bool) {
-      // ticket = new Premium();
-      // }
-      Label localLabel5 = new Label(ticket.getSeat());
-      Label localLabel6 = new Label(String.format("RM%.2f", ticket.getPrice()));
-
-      localLabel1.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
-
-      VBox localVBox2 = new VBox(5);
-      localVBox2.setAlignment(Pos.CENTER);
-      localVBox2.setPadding(new Insets(10));
-      localVBox2.getChildren().addAll(localLabel1, localLabel2, localLabel3, localLabel5, localLabel4, localLabel6);
-
-      Rectangle localRectangle = new Rectangle(250, 150);
-      localRectangle.setFill(Color.TRANSPARENT);
-      localRectangle.setStroke(Color.BLACK);
-      StackPane localStackPane = new StackPane();
-      localStackPane.getChildren().addAll(localRectangle, localVBox2);
-
-      localVBox1.getChildren().add(localStackPane);
-    }
-    localScrollPane.setContent(localVBox1);
-
-    Scene scene = new Scene(localScrollPane, 500, 400);
-    scene.getStylesheets().add("style.css");
-    localStage.setResizable(false);
-    localStage.setScene(scene);
-    localStage.showAndWait();
-  }
-}
-
-
 class SeatsLayout {
 
   static String selected;
@@ -268,7 +210,7 @@ class SeatsLayout {
   public static String display(ArrayList<String> arrayList) {
     Stage stage = new Stage();
     stage.initModality(Modality.APPLICATION_MODAL);
-    stage.setTitle("Movie Mania Seating Arrangement");
+    stage.setTitle("MovieMania Seating Arrangement");
     GridPane gridPane = new GridPane();
     gridPane.setId("seats-layout");
     gridPane.setPadding(new Insets(10));
@@ -304,5 +246,73 @@ class SeatsLayout {
     stage.setScene(scene);
     stage.showAndWait();
     return selected;
+  }
+}
+
+
+class PurchaseTicket {
+  public static void display(MovieMania movieMania) {
+    Stage localStage = new Stage();
+    localStage.initModality(Modality.APPLICATION_MODAL);
+    localStage.setTitle("MovieMania Ticket Purchase");
+
+    ScrollPane localScrollPane = new ScrollPane();
+    localScrollPane.setId("pt-scroll");
+    localScrollPane.setPadding(new Insets(10));
+    localScrollPane.setFitToHeight(true);
+    localScrollPane.setFitToWidth(true);
+    VBox localVBox1 = new VBox(10);
+    localVBox1.setId("pt-vbox");
+    localVBox1.setAlignment(Pos.CENTER);
+
+    Label text = new Label("Receipt");
+    text.setStyle("-fx-font-size: 25px; -fx-font-weight: bold;");
+    localVBox1.getChildren().add(text);
+
+    int i = 1;
+    for (Ticket ticket : movieMania.getTickets()) {
+      Label localLabel1 = new Label("Ticket #" + i++);
+      Label localLabel2 = new Label(ticket.getMovie().getNameType());
+      Label localLabel3 = new Label(ticket.getMovie().getSession());
+      boolean isPremium = ticket instanceof Premium;
+      Label localLabel4 = new Label(isPremium ? "Premium" : "Standard");
+      Label localLabel5 = new Label(ticket.getSeat());
+      Label localLabel6 = new Label(String.format("RM%.2f", ticket.getPrice()));
+      localLabel1.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
+
+      VBox localVBox2 = new VBox(5);
+      localVBox2.setAlignment(Pos.CENTER);
+      localVBox2.setPadding(new Insets(10));
+      localVBox2.getChildren().addAll(localLabel1, localLabel2, localLabel3, localLabel5, localLabel4, localLabel6);
+
+      Rectangle localRectangle = new Rectangle(250, 150);
+      localRectangle.setFill(Color.TRANSPARENT);
+      localRectangle.setStroke(Color.BLACK);
+      StackPane localStackPane = new StackPane();
+      localStackPane.getChildren().addAll(localRectangle, localVBox2);
+
+      localVBox1.getChildren().add(localStackPane);
+    }
+    Label title = new Label("MovieMania Ticketing System");
+    Label quantity = new Label("Quantity: " + String.format("%d", movieMania.getQuantity()));
+    Label price = new Label("Total Price (RM): " + String.format("%.2f", movieMania.getTotalPrice()));
+    Label tyMsg = new Label("\"Thank you for using MovieMania Ticketing System\"");
+    title.setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+    quantity.setStyle("-fx-font-weight: bold;");
+    price.setStyle("-fx-font-weight: bold;");
+    tyMsg.setStyle("-fx-font-style: italic;");
+    VBox qtyPrice = new VBox(10);
+    qtyPrice.setAlignment(Pos.CENTER);
+    qtyPrice.setPadding(new Insets(10, 10, 20, 10));
+    qtyPrice.getChildren().addAll(title, quantity, price, tyMsg);
+
+    localVBox1.getChildren().add(qtyPrice);
+    localScrollPane.setContent(localVBox1);
+
+    Scene scene = new Scene(localScrollPane, 500, 400);
+    scene.getStylesheets().add("style.css");
+    localStage.setResizable(false);
+    localStage.setScene(scene);
+    localStage.showAndWait();
   }
 }
