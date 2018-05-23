@@ -14,6 +14,6 @@ In project directory:
   $ echo Main-Class: Main > MANIFEST.MF
   $ javac *.java  # compile all java files
   $ java Main # test if the project working or not
-  $ jar -cvmf MANIFEST.MF MovieMania.jar *.class *.css img movie_mania/*.class views movie-data # create jar
+  $ jar -cvmf MANIFEST.MF MovieMania.jar *.class *.css img movie_mania/*.class views movies-data # create jar
   $ java -jar MovieMania.jar # run jar
 ```

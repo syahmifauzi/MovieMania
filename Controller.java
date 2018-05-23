@@ -85,12 +85,12 @@ public class Controller implements Initializable {
   private void viewAbout() {
     Stage stage = new Stage();
     stage.initModality(Modality.APPLICATION_MODAL);
-    stage.setTitle("MovieMania v1.0.0");
+    stage.setTitle("About MovieMania");
 
     VBox box = new VBox(10);
     box.setId("aboutPage");
     box.setAlignment(Pos.CENTER);
-    box.setPadding(new Insets(10));
+    box.setPadding(new Insets(20));
     box.getStylesheets().add("style.css");
 
     Text h1 = new Text("MovieMania 1.0.0");
