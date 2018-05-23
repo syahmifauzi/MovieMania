@@ -1,4 +1,9 @@
+import movie_mania.*;
+
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -9,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -25,6 +31,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 
 public class Controller implements Initializable {
@@ -56,11 +63,11 @@ public class Controller implements Initializable {
   /* ================================================================================ */
   @FXML
   private void goToScene1() throws IOException {
-    this.goToScene("scene1.fxml");
+    this.goToScene("views/scene1.fxml");
   }
   @FXML
   private void goToScene2() throws IOException {
-    this.goToScene("scene2.fxml");
+    this.goToScene("views/scene2.fxml");
     this.scene2Logic();
   }
   private void goToScene(String string) throws IOException {
@@ -69,6 +76,50 @@ public class Controller implements Initializable {
     fXMLLoader.setController(this);
     Parent parent = fXMLLoader.load();
     stage.setScene(new Scene(parent, this.width, this.height));
+  }
+
+
+  /* SCENES 1 LOGIC */
+  /* ================================================================================ */
+  @FXML
+  private void viewAbout() {
+    Stage stage = new Stage();
+    stage.initModality(Modality.APPLICATION_MODAL);
+    stage.setTitle("MovieMania v1.0.0");
+
+    VBox box = new VBox(10);
+    box.setId("aboutPage");
+    box.setAlignment(Pos.CENTER);
+    box.setPadding(new Insets(10));
+    box.getStylesheets().add("style.css");
+
+    Text h1 = new Text("MovieMania 1.0.0");
+    h1.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+
+    Text desc = new Text("Movie Ticketing System for CSC1103 Object Oriented Programming Course.");
+    desc.wrappingWidthProperty().bind(box.widthProperty());
+    desc.setTextAlignment(TextAlignment.CENTER);
+
+    Hyperlink repo = new Hyperlink();
+    repo.setText("https://github.com/syahmifauzi/MovieMania/");
+    
+    Text dev_head = new Text("Developed by:");
+    dev_head.setStyle("-fx-font-weight: bold;");
+    VBox box_dev = new VBox(3);
+    box_dev.setAlignment(Pos.CENTER);
+    String[] devs = {"Syahmi Fauzi", "Farhan Azhar", "Alif Azhar", "Iman Naimi", "Aqila"};
+    box_dev.getChildren().add(new Text(devs[0] + "; " + devs[1] + ";"));
+    box_dev.getChildren().add(new Text(devs[2] + "; " + devs[3] + ";"));
+    box_dev.getChildren().add(new Text(devs[4] + ";"));
+
+    Button btnClose = new Button("Close");
+    btnClose.setOnAction(e -> stage.close());
+
+    box.getChildren().addAll(h1, desc, repo, dev_head, box_dev, btnClose);
+
+    stage.setScene(new Scene(box, 400, 300));
+    stage.setResizable(false);
+    stage.show();
   }
 
 
@@ -254,25 +305,25 @@ class SeatsLayout {
 class PurchaseTicket {
 
   public static void display(MovieMania movieMania) {
-    Stage localStage = new Stage();
-    localStage.initModality(Modality.APPLICATION_MODAL);
-    localStage.setTitle("MovieMania Ticket Purchase");
+    Stage stage = new Stage();
+    stage.initModality(Modality.APPLICATION_MODAL);
+    stage.setTitle("MovieMania Ticket Purchase");
 
-    ScrollPane localScrollPane = new ScrollPane();
-    localScrollPane.setId("pt-scroll");
-    localScrollPane.setPadding(new Insets(10));
-    localScrollPane.setFitToHeight(true);
-    localScrollPane.setFitToWidth(true);
-    VBox localVBox1 = new VBox(10);
-    localVBox1.setId("pt-vbox");
-    localVBox1.setAlignment(Pos.CENTER);
+    ScrollPane scroll = new ScrollPane();
+    scroll.setId("pt-scroll");
+    scroll.setPadding(new Insets(10));
+    scroll.setFitToHeight(true);
+    scroll.setFitToWidth(true);
+    VBox box1 = new VBox(10);
+    box1.setId("pt-vbox");
+    box1.setAlignment(Pos.CENTER);
 
     Label text = new Label("Receipt");
     text.setStyle("-fx-font-size: 25px; -fx-font-weight: bold;");
-    localVBox1.getChildren().add(text);
+    box1.getChildren().add(text);
 
     int i = 1;
-    for (Ticket ticket: movieMania.getTickets()) {
+    for (Ticket ticket : movieMania.getTickets()) {
       Label locLab1 = new Label("Ticket #" + i++);
       Label locLab2 = new Label("Movie: " + ticket.getMovie().getNameType());
       Label locLab3 = new Label("Session: " + ticket.getMovie().getSession());
@@ -287,18 +338,18 @@ class PurchaseTicket {
       Label locLab6 = new Label(String.format("RM%.2f", ticket.getPrice()));
       locLab1.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
 
-      VBox localVBox2 = new VBox(5);
-      localVBox2.setAlignment(Pos.CENTER);
-      localVBox2.setPadding(new Insets(10));
-      localVBox2.getChildren().addAll(locLab1, locLab2, locLab3, locLab4, ticketLab, locLab6);
+      VBox box2 = new VBox(5);
+      box2.setAlignment(Pos.CENTER);
+      box2.setPadding(new Insets(10));
+      box2.getChildren().addAll(locLab1, locLab2, locLab3, locLab4, ticketLab, locLab6);
 
-      Rectangle localRectangle = new Rectangle(350, 150);
-      localRectangle.setFill(Color.TRANSPARENT);
-      localRectangle.setStroke(Color.BLACK);
+      Rectangle rect = new Rectangle(350, 150);
+      rect.setFill(Color.TRANSPARENT);
+      rect.setStroke(Color.BLACK);
       StackPane localStackPane = new StackPane();
-      localStackPane.getChildren().addAll(localRectangle, localVBox2);
+      localStackPane.getChildren().addAll(rect, box2);
 
-      localVBox1.getChildren().add(localStackPane);
+      box1.getChildren().add(localStackPane);
     }
     Label title = new Label("MovieMania Ticketing System");
     Label quantity = new Label("Quantity: " + String.format("%d", movieMania.getQuantity()));
@@ -314,16 +365,18 @@ class PurchaseTicket {
     qtyPrice.getChildren().addAll(title, quantity, price, tyMsg);
 
     Button btnHome = new Button("HOME");
-    btnHome.setOnAction(e -> localStage.close());
+    btnHome.setOnAction(e -> stage.close());
     btnHome.setFocusTraversable(false);
 
-    localVBox1.getChildren().addAll(qtyPrice, btnHome);
-    localScrollPane.setContent(localVBox1);
+    box1.getChildren().addAll(qtyPrice, btnHome);
+    scroll.setContent(box1);
 
-    Scene scene = new Scene(localScrollPane, 500, 400);
+    Scene scene = new Scene(scroll, 500, 400);
     scene.getStylesheets().add("style.css");
-    localStage.setResizable(false);
-    localStage.setScene(scene);
-    localStage.showAndWait();
+    stage.setResizable(false);
+    stage.setScene(scene);
+    stage.showAndWait();
   }
 }
+
+

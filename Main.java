@@ -21,7 +21,7 @@ public class Main extends Application {
   
   public void start(Stage paramStage) throws Exception {
     initialize();
-    FXMLLoader localFXMLLoader = new FXMLLoader(getClass().getResource("scene1.fxml"));
+    FXMLLoader localFXMLLoader = new FXMLLoader(getClass().getResource("views/scene1.fxml"));
     localFXMLLoader.setController(new Controller());
     Parent localParent = (Parent)localFXMLLoader.load();
     paramStage.setTitle(this.title);

@@ -22,7 +22,7 @@
 
 
 /* SECOND SCENE */
-.scene-2-root, #seats-layout, #pt-scroll, #pt-vbox {
+.scene-2-root, #seats-layout, #pt-scroll, #pt-vbox, #aboutPage {
   -fx-background-image: url("img/tile.jpg");
   -fx-background-repeat: repeat;
   -fx-background-size: auto auto;
