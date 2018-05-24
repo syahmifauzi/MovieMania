@@ -1,0 +1,51 @@
+/* HOME PAGE */
+#homePage {
+  -fx-background-image: url("cinema.jpg");
+  -fx-background-repeat: stretch;
+  -fx-background-size: 100% 100%;
+  -fx-background-position: center center;
+}
+#homePage .label .text {
+  -fx-fill: #a50000;
+  -fx-font-family: "Lato", "Vendana", sans-serif;
+  -fx-font-size: 80px;
+  -fx-font-weight: bold;
+  -fx-stroke: #ffffff;
+  -fx-stroke-width: 2px;
+}
+
+
+/* BOOK PAGE */
+#bookPage .book-title {
+  -fx-fill: #333333;
+  -fx-font-family: "Vendana";
+  -fx-font-size: 30px;
+  -fx-font-weight: bold;
+}
+#seats-screen {
+  -fx-text-fill: #a50000;
+  -fx-background-color: #f5aeae;
+  -fx-opacity: 1;
+}
+
+
+/* GLOBAL STYLES */
+.button {
+  -fx-background-radius: 10px;
+  -fx-padding: 5px 10px;
+}
+.text-field:disabled {
+  -fx-prompt-text-fill: #000000;
+  -fx-alignment: center;
+}
+.choice-box, .choice-box .context-menu {
+  -fx-min-width: 200px;
+}
+#aboutPage, #bookPage, #purchase,
+#seats-layout, #confirm-box, #alert-box {
+  -fx-background-image: url("tile.jpg");
+  -fx-background-repeat: repeat;
+  -fx-background-size: auto auto;
+  -fx-background-position: center center;
+}
+

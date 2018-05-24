@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:controller="BookController" stylesheets="style.css"
+    fx:id="bookPage" alignment="center"
+    xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
+
+  <fx:define>
+    <ToggleGroup fx:id="studentTG"/>
+    <ToggleGroup fx:id="ticketTG"/>
+  </fx:define>
+
+  <GridPane vgap="15" hgap="10" alignment="center">
+    <!-- GRIDPANE SETTINGS -->
+    <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+    
+    <!-- TITLE -->
+    <VBox GridPane.columnIndex="0" GridPane.rowIndex="0"
+        GridPane.columnSpan="2" alignment="center">
+      <Label text="Book Ticket" styleClass="book-title"/>
+    </VBox>
+
+    <!-- LABELS -->
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Select Movie:"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Session:"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="Seat:"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="4" text="Student:"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="5" text="Ticket Type:"/>
+    
+    <!-- INPUTS -->
+    <ChoiceBox fx:id="moviesInput" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <ChoiceBox fx:id="sessionsInput" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <HBox GridPane.columnIndex="1" GridPane.rowIndex="3" spacing="5">
+      <TextField fx:id="seatInput" prefWidth="100" promptText="eg. A05"/>
+      <Button text="Select Seat" fx:id="selectSeatButton"/>
+    </HBox>
+    <HBox GridPane.columnIndex="1" GridPane.rowIndex="4" spacing="5">
+      <RadioButton fx:id="yesRB" toggleGroup="$studentTG" text="Yes" selected="true"/>
+      <RadioButton toggleGroup="$studentTG" text="No"/>
+    </HBox>
+    <HBox GridPane.columnIndex="1" GridPane.rowIndex="5" spacing="5">
+      <RadioButton fx:id="standardRB" toggleGroup="$ticketTG" text="Standard" selected="true"/>
+      <RadioButton toggleGroup="$ticketTG" text="Premium"/>
+    </HBox>
+
+    <!-- INFORMATION FIELDS -->
+    <VBox GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.columnSpan="2" spacing="5">
+      <TextField fx:id="updatePrice" promptText="Price (RM): 0.00" disable="true"/>
+      <HBox spacing="5">
+        <TextField fx:id="updateQuantity" promptText="Quantity: 0" disable="true"/>
+        <TextField fx:id="updateTotal" promptText="Total (RM): 0.00" disable="true"/>
+      </HBox>
+    </VBox>
+
+    <!-- BOTTOM BUTTONS -->
+    <HBox GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="2"
+        alignment="center" spacing="5" styleClass="nav-buttons">
+      <Button text="Back" fx:id="backButton"/>
+      <Button text="Add" fx:id="addButton"/>
+      <Button text="Purchase" fx:id="purchaseButton"/>
+    </HBox>
+
+  </GridPane>
+
+</StackPane>

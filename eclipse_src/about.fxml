@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<VBox alignment="center" spacing="10">
+  
+  <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+
+  <Text text="MovieMania 1.0.0"
+      style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+  <Text wrappingWidth="350" textAlignment="center"
+      text="Movie Ticketing System for CSC1103 Object Oriented Programming Course."/>
+
+  <Hyperlink text="https://github.com/syahmifauzi/MovieMania/"/>
+
+  <VBox alignment="center" spacing="3">
+    <Text text="Developed by:" style="-fx-font-weight: bold"/>
+    <Text text="Syahmi Fauzi; Farhan Azhar;"/>
+    <Text text="Alif Azhar; Iman Naimi;"/>
+    <Text text="Aqila;"/>
+  </VBox>
+  
+</VBox>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:controller="Controller"
+    fx:id="root" stylesheets="style.css"
+    xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
+
+  <fx:include source="home.fxml"/>
+
+</StackPane>
