@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -9,8 +10,8 @@ public class Main extends Application {
   private int width;
   private int height;
   
-  public static void main(String[] paramArrayOfString) {
-    launch(paramArrayOfString);
+  public static void main(String[] args) {
+    launch(args);
   }
   
   public void initialize() {
@@ -19,14 +20,14 @@ public class Main extends Application {
     this.height = 480;
   }
   
-  public void start(Stage paramStage) throws Exception {
+  public void start(Stage stage) throws Exception {
     initialize();
-    FXMLLoader localFXMLLoader = new FXMLLoader(getClass().getResource("views/scene1.fxml"));
-    localFXMLLoader.setController(new Controller());
-    Parent localParent = (Parent)localFXMLLoader.load();
-    paramStage.setTitle(this.title);
-    paramStage.setResizable(false);
-    paramStage.setScene(new Scene(localParent, this.width, this.height));
-    paramStage.show();
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("views/root.fxml"));
+    Parent parent = (Parent)loader.load();
+    Controller.root = (StackPane)parent;
+    stage.setTitle(this.title);
+    stage.setResizable(false);
+    stage.setScene(new Scene(parent, this.width, this.height));
+    stage.show();
   }
 }

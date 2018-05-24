@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:controller="Controller"
+    fx:id="homePage" stylesheets="@../style.css"
+    xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
+
+  <VBox alignment="center" spacing="5">
+    <Label text="Movie Mania"/>
+    <HBox alignment="center" spacing="10">
+      <Button text="Enter" onAction="#viewBook"/>
+      <Button text="About" onAction="#viewAbout"/>
+    </HBox>
+  </VBox>
+
+</StackPane>

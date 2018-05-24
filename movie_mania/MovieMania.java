@@ -65,7 +65,7 @@ public class MovieMania {
     this.tickets.add(ticket);
   }
   private void readFile() throws Exception {
-    File file = new File(this.movies_file).getAbsoluteFile();
+    File file = new File(this.movies_file); // .getAbsoluteFile();
     Scanner input = new Scanner(file);
     input.useDelimiter(";");
     while (input.hasNext()) {

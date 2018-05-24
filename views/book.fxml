@@ -7,8 +7,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="content" styleClass="scene-2-root" stylesheets="@../style.css"
-    xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml" >
+<StackPane fx:controller="BookController" stylesheets="@../style.css"
+    fx:id="bookPage" alignment="center"
+    xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
 
   <fx:define>
     <ToggleGroup fx:id="studentTG"/>
